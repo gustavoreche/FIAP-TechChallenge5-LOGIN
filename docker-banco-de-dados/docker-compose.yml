@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  db-login:
+    image: postgres:16.2
+    hostname: db-login
+    container_name: "containerBancoDeDadosLogin"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./../scriptBancoDeDados:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+    restart: always

@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db-login:
+    image: postgres:16.2
+    container_name: "containerBancoDeDadosLogin"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./scriptBancoDeDados:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+    restart: always
+  app-login:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: app-sistema-login
+    environment:
+      POSTGRES_HOST: db-login:5432
+      JWT_SECRET: "segredoMaisSeguroDoMundo"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db-login
+    restart: always
