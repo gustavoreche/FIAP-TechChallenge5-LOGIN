@@ -24,11 +24,11 @@ public class JwtUtil {
                 .sign(Algorithm.HMAC256("segredoMaisSeguroDoMundo"));
     }
 
-    public static String geraJwt(String role) {
+    public static String geraJwt(String usuario) {
         return JWT.create()
                 .withIssuer("auth-api")
-                .withSubject("gustavo")
-                .withClaim("role", role)
+                .withSubject(usuario)
+                .withClaim("role", "USER")
                 .withExpiresAt(LocalDateTime.now()
                         .plusHours(2)
                         .toInstant(ZoneOffset.of("-03:00")))
