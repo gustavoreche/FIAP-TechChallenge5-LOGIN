@@ -36,7 +36,7 @@ microsserviços.
 - Nenhuma
 - Porém, para realizar as operações neste serviço, é necessário estar autenticado no serviço. Para se autenticar, é
   necessário acessar o serviço de autenticação, e obter o token de acesso, via HTTP.
-  ![img.png](integracao_utiliza.png)
+  ![img.png](integracao_utilizada.png)
 
 #### Que esse microsserviço fornece:
 
