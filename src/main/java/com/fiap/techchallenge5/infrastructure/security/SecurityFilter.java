@@ -13,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.fiap.techchallenge5.infrastructure.token.controller.TokenController.URL_AUTH_COM_LOGIN;
 import static com.fiap.techchallenge5.infrastructure.usuario.controller.UsuarioController.URL_USUARIO;
 
 @Component
@@ -28,8 +29,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        if(request.getMethod().equals("POST")
-                && request.getRequestURI().equals(URL_USUARIO)) {
+        if((request.getMethod().equals("POST")
+                && (request.getRequestURI().equals(URL_USUARIO) || request.getRequestURI().equals(URL_AUTH_COM_LOGIN)))
+        || (request.getRequestURI().contains("swagger") || request.getRequestURI().contains("api-docs"))) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -35,12 +35,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessao -> sessao.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST,URL_AUTH_COM_LOGIN).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.POST, URL_AUTH_COM_LOGIN).permitAll()
                         .requestMatchers(HttpMethod.POST, URL_USUARIO).permitAll()
                         .requestMatchers(HttpMethod.PUT, URL_USUARIO_COM_LOGIN).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, URL_USUARIO_COM_LOGIN).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, URL_USUARIO_COM_LOGIN).hasAnyRole("ADMIN","USER")
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -1,5 +1,6 @@
 package com.fiap.techchallenge5.useCase.token.impl;
 
+import com.fiap.techchallenge5.domain.token.GeraToken;
 import com.fiap.techchallenge5.infrastructure.token.controller.dto.LoginDTO;
 import com.fiap.techchallenge5.infrastructure.usuario.model.UsuarioEntity;
 import com.fiap.techchallenge5.useCase.token.AuthUseCase;
@@ -18,9 +19,14 @@ public class AuthUseCaseImpl implements AuthUseCase {
 
     @Override
     public UsuarioEntity pegaUsuarioAutenticado(final LoginDTO login) {
-        final var usuarioESenha = new UsernamePasswordAuthenticationToken(
+        final var geraToken = new GeraToken(
                 login.login(),
                 login.senha()
+        );
+
+        final var usuarioESenha = new UsernamePasswordAuthenticationToken(
+                geraToken.login(),
+                geraToken.senha()
         );
 
         final var auth = this.authManager.authenticate(usuarioESenha);

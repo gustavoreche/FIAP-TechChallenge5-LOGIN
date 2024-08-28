@@ -54,6 +54,17 @@ public class PerformanceTestSimulation extends Simulation {
             .header("Authorization", "Bearer " + token)
             .check(status().is(200));
 
+    ActionBuilder geraTokenRequest = http("gera token")
+            .post("/auth/login")
+            .header("Content-Type", "application/json")
+            .body(StringBody("""
+                              {
+                                "login": "gustavo",
+                                "senha": "senhaForte"
+                              }
+                    """))
+            .check(status().is(200));
+
     ScenarioBuilder cenarioCadastraUsuario = scenario("Cadastra usuário")
             .exec(session -> {
                 long login = System.currentTimeMillis();
@@ -84,6 +95,9 @@ public class PerformanceTestSimulation extends Simulation {
             })
             .exec(cadastraUsuarioRequest)
             .exec(buscaUsuarioRequest);
+
+    ScenarioBuilder cenarioGeraToken = scenario("Gera token")
+            .exec(geraTokenRequest);
 
 
     {
@@ -120,6 +134,15 @@ public class PerformanceTestSimulation extends Simulation {
                                 .to(10)
                                 .during(Duration.ofSeconds(10)),
                         constantUsersPerSec(10)
+                                .during(Duration.ofSeconds(20)),
+                        rampUsersPerSec(10)
+                                .to(1)
+                                .during(Duration.ofSeconds(10))),
+                cenarioGeraToken.injectOpen(
+                        rampUsersPerSec(1)
+                                .to(10)
+                                .during(Duration.ofSeconds(10)),
+                        constantUsersPerSec(5)
                                 .during(Duration.ofSeconds(20)),
                         rampUsersPerSec(10)
                                 .to(1)
