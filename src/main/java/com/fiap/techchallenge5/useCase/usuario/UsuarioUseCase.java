@@ -2,7 +2,6 @@ package com.fiap.techchallenge5.useCase.usuario;
 
 import com.fiap.techchallenge5.infrastructure.usuario.controller.dto.AtualizaUsuarioDTO;
 import com.fiap.techchallenge5.infrastructure.usuario.controller.dto.CriaUsuarioDTO;
-import com.fiap.techchallenge5.infrastructure.usuario.controller.dto.UsuarioDTO;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UsuarioUseCase extends UserDetailsService {

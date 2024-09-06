@@ -40,5 +40,7 @@ microsserviços.
 
 #### Que esse microsserviço fornece:
 
-- A aplicação fornece via HTTP informações dos itens, para o microsserviço de ... .
-  [imagem]
+- A aplicação fornece via HTTP informações para verificar se o cliente que veio pelo token JWT, 
+realmente existe na base de dados, para os microsserviços de PAGAMENTOS, 
+CARRINHO DE COMPRAS e ITENS.
+![img.png](integracao_fornece.png)
